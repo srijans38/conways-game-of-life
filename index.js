@@ -30,69 +30,16 @@ function addHelper(i, j) {
 }
 
 function checkNeighbours(i, j) {
-  var liveNeighbours;
-  if (i == 0 && j == 0) {
-    liveNeighbours = grid[i + 1][j] + grid[i][j + 1] + grid[i + 1][j + 1];
-    return liveNeighbours;
-  }
-  if (i == 0 && j == gridSize - 1) {
-    liveNeighbours = grid[i][j - 1] + grid[i + 1][j] + grid[i + 1][j - 1];
-    return liveNeighbours;
-  }
-  if (i == gridSize - 1 && j == 0) {
-    liveNeighbours = grid[i - 1][j] + grid[i - 1][j + 1] + grid[i][j + 1];
-    return liveNeighbours;
-  }
-  if (i == gridSize - 1 && j == gridSize - 1) {
-    liveNeighbours = grid[i - 1][j - 1] + grid[i - 1][j] + grid[i][j - 1];
-    return liveNeighbours;
-  }
-  if (j == gridSize - 1) {
-    liveNeighbours =
-      grid[i][j - 1] +
-      grid[i - 1][j] +
-      grid[i + 1][j] +
-      grid[i - 1][j - 1] +
-      grid[i + 1][j - 1];
-    return liveNeighbours;
-  }
-  if (j == 0) {
-    liveNeighbours =
-      grid[i][j + 1] +
-      grid[i - 1][j] +
-      grid[i + 1][j] +
-      grid[i + 1][j + 1] +
-      grid[i - 1][j + 1];
-    return liveNeighbours;
-  }
-  if (i == gridSize - 1) {
-    liveNeighbours =
-      grid[i][j + 1] +
-      grid[i][j - 1] +
-      grid[i - 1][j] +
-      grid[i - 1][j - 1] +
-      grid[i - 1][j + 1];
-    return liveNeighbours;
-  }
-  if (i == 0) {
-    liveNeighbours =
-      grid[i][j + 1] +
-      grid[i][j - 1] +
-      grid[i + 1][j] +
-      grid[i + 1][j + 1] +
-      grid[i + 1][j - 1];
-    return liveNeighbours;
-  }
-  liveNeighbours =
-    grid[i][j + 1] +
-    grid[i][j - 1] +
-    grid[i - 1][j] +
-    grid[i + 1][j] +
-    grid[i + 1][j + 1] +
-    grid[i - 1][j - 1] +
-    grid[i - 1][j + 1] +
-    grid[i + 1][j - 1];
-  return liveNeighbours;
+  return (
+    addHelper(i, j + 1) +
+    addHelper(i, j - 1) +
+    addHelper(i - 1, j) +
+    addHelper(i + 1, j) +
+    addHelper(i + 1, j + 1) +
+    addHelper(i - 1, j - 1) +
+    addHelper(i - 1, j + 1) +
+    addHelper(i + 1, j - 1)
+  );
 }
 
 function draw() {
