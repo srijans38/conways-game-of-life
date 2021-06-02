@@ -4,6 +4,8 @@ var ctx = canvas.getContext('2d');
 var gridSize = 100;
 var interval;
 var grid = new Array(gridSize);
+var delay = document.querySelector('#delay').value;
+var delayText = document.querySelector('#delayText');
 
 function fillArray() {
   for (let i = 0; i < grid.length; i++) {
@@ -291,10 +293,14 @@ function init() {
   draw();
 }
 
+function run(delay) {
+  running = true;
+  return setInterval(draw, delay);
+}
+
 document.querySelector('button').addEventListener('click', () => {
   if (!running) {
-    interval = setInterval(draw, 50);
-    running = true;
+    interval = run(delay);
   } else {
     clearInterval(interval);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -304,5 +310,14 @@ document.querySelector('button').addEventListener('click', () => {
 });
 
 document.querySelector('#pattern').addEventListener('change', init);
+
+document.querySelector('#delay').addEventListener('input', (e) => {
+  delay = e.target.value;
+  delayText.innerHTML = delay;
+  if (running) {
+    clearInterval(interval);
+    interval = run(delay);
+  }
+});
 
 window.onload = init;
